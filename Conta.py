@@ -22,22 +22,27 @@ class Conta:
     def depositar(self,valor):
         self.saldo+=valor
         print(f'status:Deposito de R${valor:.2f} realizado com sucesso!')
+        print()
 
     def sacar(self,sacar):
         if sacar>self.saldo:
             print(f'status:seu saldo é insuficiente para o saque!')
+            print()
             return False
         else:
             self.saldo-=sacar
             print(f'status:Saque de R${sacar:.2f} realizado com sucesso!')
+            print()
             return True
     def transferir(self,contaDestino,valor):
         if transferir>self.saldo:
             print('status:Seu saldo é insuficiente para a transferência')
+            print()
         else:
             contaDestino.depositar(valor)
             self.saldo-=valor
-            print(f'status:A transferência de R${transferir} foi realizada com sucesso!')
+            print(f'status:A transferência de R${transferir:.2f} foi realizada com sucesso!')
+            print()
     def dados(self):
         print(f'{"SUA CONTA:":.<36}{self.idConta:>3}')
         print(f'{"TITULAR DA CONTA:":.<32}{self.titularConta:>3}')
@@ -79,12 +84,20 @@ while resp !='S':
         conta1.sacar(sacar)
         continue
     elif opcoes==3:
+        sleep(0.5)
         transferir=float(input('Quanto deseja transferir?:'))
         print('CONFIRA OS DADOS PARA A TRANSFÊNCIA')
         print(f'Conta que será depositada: {conta2.idConta}')
         print(f'Titular da conta: {conta2.titularConta}')
-        conta1.transferir(conta2,transferir)
-        continue
+        confirme=str(input('Os dados estão corretos?[S/N]:')).upper().strip()[0]
+        if confirme=='S':
+            sleep(2)
+            conta1.transferir(conta2,transferir)
+            continue
+        elif confirme=='N':
+            print('Retornar ao menu principal')
+            continue
+
     elif opcoes==4:
         print('aguarde...')
         sleep(1)
